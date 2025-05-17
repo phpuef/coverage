@@ -2,7 +2,7 @@
     "name": "phpuef/github-lib-template",
     "type": "template",
     "require-dev": {
-        "phpunit/phpunit": "^12"
+        "phpunit/phpunit": "^12.1"
     },
     "license": "MIT",
     "authors": [
