@@ -8,7 +8,7 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer global require phpunit/phpunit:^12
+RUN composer global require phpunit/phpunit:^12.1
 
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
 
