@@ -1,7 +1,11 @@
-.PHONY: install tests install-dev-tools composer
+.PHONY: install tests install-dev-tools composer build
 
 COMPOSER_HOME ?= $(HOME)/.config/composer
 COMPOSER_CACHE_DIR ?= $(HOME)/.cache/composer
+
+
+build:
+	podman build -f Dockerfile -t gouef/phpunit-coverage
 
 install-dev-tools:
 	podman pull composer
@@ -23,14 +27,10 @@ tests:
 	go test -covermode=set ./... -coverprofile=coverage.txt && go tool cover -func=coverage.txt
 coverage:
 	podman run --rm -it \
-    		--env COMPOSER_HOME=$(COMPOSER_HOME) \
-    		--env COMPOSER_CACHE_DIR=$(COMPOSER_CACHE_DIR) \
-    		--env XDEBUG_MODE=coverage \
-    		--volume $(COMPOSER_HOME):$(COMPOSER_HOME):Z \
-    		--volume $(COMPOSER_CACHE_DIR):$(COMPOSER_CACHE_DIR):Z \
-    		--volume $(CURDIR):/app:Z \
-    		--workdir /app \
-    		composer vendor/bin/phpunit --coverage-text=coverage.txt
+		--env XDEBUG_MODE=coverage \
+		--volume $(CURDIR):/app:Z \
+		--workdir /app \
+		gouef/phpunit-coverage vendor/bin/phpunit --coverage-text=coverage.txt
 
 %:
 	@:

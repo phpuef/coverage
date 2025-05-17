@@ -1,7 +1,7 @@
 <img align=right width="168" src="docs/gouef_logo.png">
 
-# github-lib-template
-Github template for new libraries
+# gouef/phpunit-coverage
+PHP enables xdebug for coverage
 
 [![Static Badge](https://img.shields.io/badge/Github-phpuef%2Fgithub--lib--template-blue?style=for-the-badge&logo=github&link=github.com%2Fgouef%2Fgithub-lib-template)](https://github.com/phpuef/github-lib-template)
 
@@ -17,14 +17,18 @@ Github template for new libraries
 ![GitHub Release](https://img.shields.io/github/v/release/phpuef/github-lib-template?label=Beta&include_prereleases&filter=*beta*&logoSize=diago)
 
 
-## Introduction
+## Usage
 
-This is template repository for new libraries
 
-## Important
-
-- Edit go.mod and rename to your package module
-- Uncomment .github/workflows/tests.yml
+Makefile:
+---------
+```makefile
+podman run --rm -it \
+    --env XDEBUG_MODE=coverage \
+    --volume $(CURDIR):/app:Z \
+    --workdir /app \
+    gouef/phpunit-coverage vendor/bin/phpunit --coverage-text=coverage.txt
+```
 
 ## Contributing
 

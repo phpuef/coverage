@@ -1,10 +1,10 @@
 name: Build and Push Docker image on Release
 
-#on:
-#  workflow_run:
-#    workflows: ["Create Release"]
-#    types:
-#      - completed
+on:
+  workflow_run:
+    workflows: ["Create Release"]
+    types:
+      - completed
 
 jobs:
   build:
@@ -30,10 +30,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo_name.outputs.REPO_NAME }}:latest \
-                       -t ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo_name.outputs.REPO_NAME }}:${{ steps.get_tag.outputs.TAG }} .
+          docker build -t gouef/phpunit-coverage:latest \
+                       -t gouef/phpunit-coverage:${{ steps.get_tag.outputs.TAG }} .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo_name.outputs.REPO_NAME }}:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo_name.outputs.REPO_NAME }}:${{ steps.get_tag.outputs.TAG }}
+          docker push gouef/phpunit-coverage:latest
+          docker push gouef/phpunit-coverage:${{ steps.get_tag.outputs.TAG }}
